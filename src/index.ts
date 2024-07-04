@@ -13,4 +13,5 @@ export * from './models/gluuUserType';
 export * from './models/jwtPayload';
 export * from './models/publicKey';
 export * from './userValidator';
+export * from './utils/getUniqueId';
 export * from './utils/jwtMock';

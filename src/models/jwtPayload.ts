@@ -7,6 +7,7 @@ export interface IJWTPayload {
   // TODO more comments on those properties!
 
   accessToken: string;
+  accessTokenIssuer?: string;
   iss: string;
 
   // JWT information
@@ -22,17 +23,26 @@ export interface IJWTPayload {
   // From UserInfo
   name: string;
   sub: string;
+  oid?: string;
 
   /**
    * @deprecated Please use mtlIdentityId or userName instead.
    */
   inum: string;
 
+  /**
+   * @description Warning! This attribute will be empty when userType is 'client',
+   * because the token was produced using client_credentials grant, which is for machine to machine communication
+   * and has no associated account and also does not allow interactive logon.
+   */
   userName: string;
   givenName: string;
   familyName: string;
   userType: string;
   email?: string;
+  realm?: string;
+  env?: string;
+  isGenericAccount?: boolean;
 
   // Corresponds to oro identity-id or inum
   mtlIdentityId?: string;
