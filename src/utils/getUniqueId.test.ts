@@ -309,7 +309,7 @@ describe('getUniqueId', () => {
         'urn:user:employees:::0b642a04-9cce-42dc-b456-1cbbc179cd72'
       );
     });
-    it('should ignore an unknown env', () => {
+    it('should not ignore an unknown env', () => {
       const jwt: IJWTPayload = {
         accessToken: '<redacted>',
         iss: 'security-identity-token-api',
@@ -336,7 +336,7 @@ describe('getUniqueId', () => {
         env: 'staging',
       };
       expect(getUniqueId(jwt, 'OpaqueURN')).to.equal(
-        'urn:user:employees:::0b642a04-9cce-42dc-b456-1cbbc179cd72'
+        'urn:user:employees:staging::0b642a04-9cce-42dc-b456-1cbbc179cd72'
       );
     });
     it('should accept values containing a colon', () => {
@@ -367,7 +367,7 @@ describe('getUniqueId', () => {
       };
       expect(getUniqueId(jwt, 'HumanReadableURN')).to.equal('urn:user:employees:dev:foo\\:bar');
     });
-    it('should reject an unknown realm', () => {
+    it('should not reject an unknown realm', () => {
       const jwt: IJWTPayload = {
         accessToken: '<redacted>',
         iss: 'security-identity-token-api',
@@ -393,7 +393,10 @@ describe('getUniqueId', () => {
         inum: '',
         env: 'dev',
       };
-      expect(() => getUniqueId(jwt, 'HumanReadableURN')).to.throw(`Unknown realm 'foobar'`);
+      // Note that we get the sub as an ID because the realm is not employees!
+      expect(getUniqueId(jwt, 'OpaqueURN')).to.equal(
+        'urn:user:foobar:dev::uuUOZLMFfuURgumF2hE2VLqLoDy8Z0ZIr5AeicCJSHQ'
+      );
     });
     it('should reject a JWT without an ID and a username', () => {
       const jwt: IJWTPayload = {

@@ -97,8 +97,8 @@ export function getUniqueId(jwt: IJWTPayload, format: UniqueIdFormat): string {
     case 'OpaqueURN':
       return buildUrn({
         type: getUrnType(jwt),
-        realm: getRealm(jwt),
-        env: getEnv(jwt),
+        realm: jwt.realm,
+        env: jwt.env,
         id: getId(jwt),
       });
 
@@ -108,16 +108,16 @@ export function getUniqueId(jwt: IJWTPayload, format: UniqueIdFormat): string {
     case 'HumanReadableURN':
       return buildUrn({
         type: getUrnType(jwt),
-        realm: getRealm(jwt),
-        env: getEnv(jwt),
+        realm: jwt.realm,
+        env: jwt.env,
         name: getUsername(jwt),
       });
 
     case 'VerboseURN':
       return buildUrn({
         type: getUrnType(jwt),
-        realm: getRealm(jwt),
-        env: getEnv(jwt),
+        realm: jwt.realm,
+        env: jwt.env,
         name: getUsername(jwt),
         id: getId(jwt),
       });
@@ -130,12 +130,6 @@ export function getUniqueId(jwt: IJWTPayload, format: UniqueIdFormat): string {
 /** The type of resource: user for employees, citizens and anonymous users, versus sp for service principals or service accounts */
 export type UrnType = 'user' | 'sp';
 
-/** The environments used by the city of Montreal */
-export type Environment = 'lab' | 'dev' | 'accept' | 'prod';
-
-/** The 3 realms used by the city of Montreal  */
-export type Realm = 'employees' | 'citizens' | 'anonymous';
-
 /** creates a URN string from the submitted values */
 export function buildUrnFromValues(values: string[]): string {
   return ['urn', ...values.map((val) => val.replace(':', '\\:'))].join(':');
@@ -144,8 +138,8 @@ export function buildUrnFromValues(values: string[]): string {
 /** creates a URN string from the normalized components of an account or resource */
 export function buildUrn(options: {
   type: UrnType;
-  realm: Realm;
-  env?: Environment;
+  realm?: string;
+  env?: string;
   name?: string;
   id?: string;
 }): string {
@@ -172,31 +166,6 @@ export function getUrnType(jwt: IJWTPayload): UrnType {
     return 'sp';
   }
   return 'user';
-}
-
-/** gets the realm that produced the access token */
-export function getRealm(jwt: IJWTPayload): Realm {
-  const realm = jwt.realm;
-  if (realm === 'employees') {
-    return realm;
-  }
-  if (realm === 'citizens') {
-    return realm;
-  }
-  if (realm === 'anonymous') {
-    return realm;
-  }
-  throw new Error(`Unknown realm '${realm}'`);
-}
-
-/** gets the environment that produced the JWT */
-export function getEnv(jwt: IJWTPayload): Environment | undefined {
-  if (jwt.env) {
-    if (['lab', 'dev', 'accept', 'prod'].includes(jwt.env)) {
-      return jwt.env as any;
-    }
-  }
-  return undefined;
 }
 
 /** gets the internal ID of the resource */
