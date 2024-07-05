@@ -107,6 +107,7 @@ describe('getUniqueId', () => {
       name: 'Morgan Japon',
       sub: '@!4025.CA62.9BB6.16C5!0001!2212.0010!0000!BEDB.3F39.4ADB.F74D',
       inum: '@!4025.CA62.9BB6.16C5!0001!2212.0010!0000!BEDB.3F39.4ADB.F74D',
+      oid: '7d69384b-dcf4-4972-b3eb-551c700fd546',
       userName: 'morgan.japon@mailinator.com',
       givenName: 'Morgan',
       familyName: 'Japon',
@@ -198,6 +199,7 @@ describe('getUniqueId', () => {
       displayName: 'infra-auth-auth-playground-dev',
       aud: 'e5dd632b-cb97-48d7-a310-5147be717cde',
       sub: 'e5dd632b-cb97-48d7-a310-5147be717cde',
+      oid: '18e8a9b0-876f-4a78-9934-ce4903377c2a',
       userType: 'client',
       realm: 'employees',
       accessTokenIssuer:
@@ -242,6 +244,7 @@ describe('getUniqueId', () => {
       displayName: 'infra-auth-auth-playground',
       aud: 'a496befa-db7d-45a6-ac7a-11471816b8f1',
       sub: 'a496befa-db7d-45a6-ac7a-11471816b8f1',
+      oid: 'b037f4b8-4b32-4cbf-bb85-3d8365c9eafa',
       userType: 'client',
       realm: 'citizens',
       accessTokenIssuer:

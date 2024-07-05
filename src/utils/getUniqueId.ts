@@ -170,9 +170,11 @@ export function getUrnType(jwt: IJWTPayload): UrnType {
 
 /** gets the internal ID of the resource */
 export function getId(jwt: IJWTPayload): string {
-  if (jwt.realm === 'employees') {
+  if (jwt.realm === 'employees' && jwt.userType !== 'client') {
     // In EntraID, the sub of an employee is a unique random number assigned for the app and won't be the same accross apps,
     // so we'll prefer the oid (ObjectID) which is the real ID of the user.
+    // Note that we don't want to use the oid for clients because it is different from the sub, which contains the appId,
+    // and the appId has been used to configure GDA to recognize a client a return a specific profile.
     return jwt.oid ?? jwt.sub;
   }
   // for other types of JWT (citizen, anonymous and client), the sub is already correct.
@@ -191,7 +193,11 @@ export function getUsername(jwt: IJWTPayload): string {
     return jwt.email;
   }
   if (jwt.userType === 'client' && jwt.displayName && jwt.realm === 'employees') {
+    // we can trust the displayName in EntraID (employees) because it is part of the access_token used to produce the JWT
+    // and is thus guaranteed to be present.
     return jwt.displayName;
   }
+  // for ADB2C, we can't guarantee the displayName since TokenAPI will do a lookup in the App definition and thus we'll rely on the audience (appId).
+  // Note that there should be very few clients in ADB2C since we have decided that all our clients (service account or principal) should be in EntraID.
   return jwt.sub;
 }
