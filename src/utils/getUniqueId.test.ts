@@ -35,18 +35,59 @@ describe('getUniqueId', () => {
     });
     it('OpaqueURN', () => {
       expect(getUniqueId(jwt, 'OpaqueURN')).to.equal(
-        'urn:user:employees:dev::0b642a04-9cce-42dc-b456-1cbbc179cd72'
+        'urn:montreal:dev:vdm:iam:user:employees:0b642a04-9cce-42dc-b456-1cbbc179cd72'
       );
     });
     it('HumanReadable', () => {
       expect(getUniqueId(jwt, 'HumanReadable')).to.equal('umartw8');
     });
     it('HumanReadableURN', () => {
-      expect(getUniqueId(jwt, 'HumanReadableURN')).to.equal('urn:user:employees:dev:umartw8');
+      expect(getUniqueId(jwt, 'HumanReadableURN')).to.equal(
+        'urn:montreal:dev:vdm:iam:user:employees:umartw8'
+      );
     });
-    it('VerboseURN', () => {
-      expect(getUniqueId(jwt, 'VerboseURN')).to.equal(
-        'urn:user:employees:dev:umartw8:0b642a04-9cce-42dc-b456-1cbbc179cd72'
+  });
+  describe('employee of SPVM', () => {
+    const jwt: IJWTPayload = {
+      accessToken: '<redacted>',
+      iss: 'security-identity-token-api',
+      exp: 1720130328,
+      iat: 1720124899,
+      keyId: 6,
+      displayName: 'infra-auth-auth-playground-dev',
+      aud: 'e5dd632b-cb97-48d7-a310-5147be717cde',
+      name: 'Morgan MARTINET',
+      sub: 'uuUOZLMFfuURgumF2hE2VLqLoDy8Z0ZIr5AeicCJSHQ',
+      oid: '0b642a04-9cce-42dc-b456-1cbbc179cd72',
+      userName: 'umartw8',
+      givenName: 'Morgan',
+      familyName: 'MARTINET',
+      userType: 'employee',
+      employeeNumber: '100175062',
+      department: '421408000000',
+      phoneMobileNumber: '4389698467',
+      realm: 'employees',
+      accessTokenIssuer:
+        'https://login.microsoftonline.com/9f15d2dc-8753-4f83-aac2-a58288d3a4bc/v2.0',
+      email: 'morgan.martinet@spvm.qc.ca',
+      inum: '',
+      env: 'dev',
+    };
+
+    it('Opaque', () => {
+      expect(getUniqueId(jwt, 'Opaque')).to.equal('0b642a04-9cce-42dc-b456-1cbbc179cd72');
+    });
+    it('OpaqueURN', () => {
+      expect(getUniqueId(jwt, 'OpaqueURN')).to.equal(
+        'urn:montreal:dev:spvm:iam:user:employees:0b642a04-9cce-42dc-b456-1cbbc179cd72'
+      );
+    });
+    it('HumanReadable', () => {
+      expect(getUniqueId(jwt, 'HumanReadable')).to.equal('umartw8');
+    });
+    it('HumanReadableURN', () => {
+      expect(getUniqueId(jwt, 'HumanReadableURN')).to.equal(
+        'urn:montreal:dev:spvm:iam:user:employees:umartw8'
       );
     });
   });
@@ -80,18 +121,15 @@ describe('getUniqueId', () => {
     });
     it('OpaqueURN', () => {
       expect(getUniqueId(jwt, 'OpaqueURN')).to.equal(
-        'urn:user:employees:dev::74096b4e-c090-4a97-af04-bbe25dc4f7d6'
+        'urn:montreal:dev:vdm:iam:user:employees:74096b4e-c090-4a97-af04-bbe25dc4f7d6'
       );
     });
     it('HumanReadable', () => {
       expect(getUniqueId(jwt, 'HumanReadable')).to.equal('cgdsecdev2');
     });
     it('HumanReadableURN', () => {
-      expect(getUniqueId(jwt, 'HumanReadableURN')).to.equal('urn:user:employees:dev:cgdsecdev2');
-    });
-    it('VerboseURN', () => {
-      expect(getUniqueId(jwt, 'VerboseURN')).to.equal(
-        'urn:user:employees:dev:cgdsecdev2:74096b4e-c090-4a97-af04-bbe25dc4f7d6'
+      expect(getUniqueId(jwt, 'HumanReadableURN')).to.equal(
+        'urn:montreal:dev:vdm:iam:user:employees:cgdsecdev2'
       );
     });
   });
@@ -127,7 +165,7 @@ describe('getUniqueId', () => {
     });
     it('OpaqueURN', () => {
       expect(getUniqueId(jwt, 'OpaqueURN')).to.equal(
-        'urn:user:citizens:dev::@!4025.CA62.9BB6.16C5!0001!2212.0010!0000!BEDB.3F39.4ADB.F74D'
+        'urn:montreal:dev:vdm:iam:user:citizens:@!4025.CA62.9BB6.16C5!0001!2212.0010!0000!BEDB.3F39.4ADB.F74D'
       );
     });
     it('HumanReadable', () => {
@@ -135,12 +173,7 @@ describe('getUniqueId', () => {
     });
     it('HumanReadableURN', () => {
       expect(getUniqueId(jwt, 'HumanReadableURN')).to.equal(
-        'urn:user:citizens:dev:morgan.japon@mailinator.com'
-      );
-    });
-    it('VerboseURN', () => {
-      expect(getUniqueId(jwt, 'VerboseURN')).to.equal(
-        'urn:user:citizens:dev:morgan.japon@mailinator.com:@!4025.CA62.9BB6.16C5!0001!2212.0010!0000!BEDB.3F39.4ADB.F74D'
+        'urn:montreal:dev:vdm:iam:user:citizens:morgan.japon@mailinator.com'
       );
     });
   });
@@ -172,7 +205,7 @@ describe('getUniqueId', () => {
     });
     it('OpaqueURN', () => {
       expect(getUniqueId(jwt, 'OpaqueURN')).to.equal(
-        'urn:user:anonymous:dev::@!4025.CA62.9BB6.16C5!0001!2212.0010!0000!0000.1111.0020'
+        'urn:montreal:dev:vdm:iam:user:anonymous:@!4025.CA62.9BB6.16C5!0001!2212.0010!0000!0000.1111.0020'
       );
     });
     it('HumanReadable', () => {
@@ -180,12 +213,7 @@ describe('getUniqueId', () => {
     });
     it('HumanReadableURN', () => {
       expect(getUniqueId(jwt, 'HumanReadableURN')).to.equal(
-        'urn:user:anonymous:dev:srvAccAnonymous'
-      );
-    });
-    it('VerboseURN', () => {
-      expect(getUniqueId(jwt, 'VerboseURN')).to.equal(
-        'urn:user:anonymous:dev:srvAccAnonymous:@!4025.CA62.9BB6.16C5!0001!2212.0010!0000!0000.1111.0020'
+        'urn:montreal:dev:vdm:iam:user:anonymous:srvAccAnonymous'
       );
     });
   });
@@ -217,7 +245,7 @@ describe('getUniqueId', () => {
     });
     it('OpaqueURN', () => {
       expect(getUniqueId(jwt, 'OpaqueURN')).to.equal(
-        'urn:sp:employees:dev::e5dd632b-cb97-48d7-a310-5147be717cde'
+        'urn:montreal:dev:vdm:iam:app:employees:e5dd632b-cb97-48d7-a310-5147be717cde'
       );
     });
     it('HumanReadable', () => {
@@ -225,12 +253,7 @@ describe('getUniqueId', () => {
     });
     it('HumanReadableURN', () => {
       expect(getUniqueId(jwt, 'HumanReadableURN')).to.equal(
-        'urn:sp:employees:dev:infra-auth-auth-playground-dev'
-      );
-    });
-    it('VerboseURN', () => {
-      expect(getUniqueId(jwt, 'VerboseURN')).to.equal(
-        'urn:sp:employees:dev:infra-auth-auth-playground-dev:e5dd632b-cb97-48d7-a310-5147be717cde'
+        'urn:montreal:dev:vdm:iam:app:employees:infra-auth-auth-playground-dev'
       );
     });
   });
@@ -262,7 +285,7 @@ describe('getUniqueId', () => {
     });
     it('OpaqueURN', () => {
       expect(getUniqueId(jwt, 'OpaqueURN')).to.equal(
-        'urn:sp:citizens:dev::a496befa-db7d-45a6-ac7a-11471816b8f1'
+        'urn:montreal:dev:vdm:iam:app:citizens:a496befa-db7d-45a6-ac7a-11471816b8f1'
       );
     });
     it('HumanReadable', () => {
@@ -272,13 +295,7 @@ describe('getUniqueId', () => {
     it('HumanReadableURN', () => {
       // Note that we can't guarantee the displayName in the citizens realm (Azure ADB2C) and thus we defaults to the sub.
       expect(getUniqueId(jwt, 'HumanReadableURN')).to.equal(
-        'urn:sp:citizens:dev:a496befa-db7d-45a6-ac7a-11471816b8f1'
-      );
-    });
-    it('VerboseURN', () => {
-      // Note that we can't guarantee the displayName in the citizens realm (Azure ADB2C) and thus we defaults to the sub.
-      expect(getUniqueId(jwt, 'VerboseURN')).to.equal(
-        'urn:sp:citizens:dev:a496befa-db7d-45a6-ac7a-11471816b8f1:a496befa-db7d-45a6-ac7a-11471816b8f1'
+        'urn:montreal:dev:vdm:iam:app:citizens:a496befa-db7d-45a6-ac7a-11471816b8f1'
       );
     });
   });
@@ -309,7 +326,7 @@ describe('getUniqueId', () => {
         inum: '',
       };
       expect(getUniqueId(jwt, 'OpaqueURN')).to.equal(
-        'urn:user:employees:::0b642a04-9cce-42dc-b456-1cbbc179cd72'
+        'urn:montreal:unknown:vdm:iam:user:employees:0b642a04-9cce-42dc-b456-1cbbc179cd72'
       );
     });
     it('should not ignore an unknown env', () => {
@@ -339,7 +356,7 @@ describe('getUniqueId', () => {
         env: 'staging',
       };
       expect(getUniqueId(jwt, 'OpaqueURN')).to.equal(
-        'urn:user:employees:staging::0b642a04-9cce-42dc-b456-1cbbc179cd72'
+        'urn:montreal:staging:vdm:iam:user:employees:0b642a04-9cce-42dc-b456-1cbbc179cd72'
       );
     });
     it('should accept values containing a colon', () => {
@@ -368,7 +385,39 @@ describe('getUniqueId', () => {
         inum: '',
         env: 'dev',
       };
-      expect(getUniqueId(jwt, 'HumanReadableURN')).to.equal('urn:user:employees:dev:foo\\:bar');
+      expect(getUniqueId(jwt, 'HumanReadableURN')).to.equal(
+        'urn:montreal:dev:vdm:iam:user:employees:foo%3Abar'
+      );
+    });
+    it('should accept values containing a percent', () => {
+      const jwt: IJWTPayload = {
+        accessToken: '<redacted>',
+        iss: 'security-identity-token-api',
+        exp: 1720130328,
+        iat: 1720124899,
+        keyId: 6,
+        displayName: 'infra-auth-auth-playground-dev',
+        aud: 'e5dd632b-cb97-48d7-a310-5147be717cde',
+        name: 'Morgan MARTINET',
+        sub: 'uuUOZLMFfuURgumF2hE2VLqLoDy8Z0ZIr5AeicCJSHQ',
+        oid: '0b642a04-9cce-42dc-b456-1cbbc179cd72',
+        userName: 'foo%bar',
+        givenName: 'Morgan',
+        familyName: 'MARTINET',
+        userType: 'employee',
+        employeeNumber: '100175062',
+        department: '421408000000',
+        phoneMobileNumber: '4389698467',
+        realm: 'employees',
+        accessTokenIssuer:
+          'https://login.microsoftonline.com/9f15d2dc-8753-4f83-aac2-a58288d3a4bc/v2.0',
+        email: 'morgan.martinet@montreal.ca',
+        inum: '',
+        env: 'dev',
+      };
+      expect(getUniqueId(jwt, 'HumanReadableURN')).to.equal(
+        'urn:montreal:dev:vdm:iam:user:employees:foo%25bar'
+      );
     });
     it('should not reject an unknown realm', () => {
       const jwt: IJWTPayload = {
@@ -398,7 +447,7 @@ describe('getUniqueId', () => {
       };
       // Note that we get the sub as an ID because the realm is not employees!
       expect(getUniqueId(jwt, 'OpaqueURN')).to.equal(
-        'urn:user:foobar:dev::uuUOZLMFfuURgumF2hE2VLqLoDy8Z0ZIr5AeicCJSHQ'
+        'urn:montreal:dev:vdm:iam:user:foobar:uuUOZLMFfuURgumF2hE2VLqLoDy8Z0ZIr5AeicCJSHQ'
       );
     });
     it('should reject a JWT without an ID and a username', () => {
@@ -427,7 +476,7 @@ describe('getUniqueId', () => {
         env: 'dev',
       };
       expect(() => getUniqueId(jwt, 'HumanReadableURN')).to.throw(
-        `Expected to receive at least a name or an id but received: {"type":"user","realm":"employees","env":"dev","name":""}`
+        `Expected to receive an id but received: {"type":"user","tenant":"vdm","realm":"employees","env":"dev","id":""}`
       );
     });
     it('should fallback on the email when username is missing', () => {
@@ -457,7 +506,7 @@ describe('getUniqueId', () => {
         env: 'dev',
       };
       expect(getUniqueId(jwt, 'HumanReadableURN')).to.equal(
-        'urn:user:employees:dev:morgan.martinet@montreal.ca'
+        'urn:montreal:dev:vdm:iam:user:employees:morgan.martinet@montreal.ca'
       );
     });
     it('should fallback on the sub when oid is missing', () => {
@@ -486,7 +535,7 @@ describe('getUniqueId', () => {
         env: 'dev',
       };
       expect(getUniqueId(jwt, 'OpaqueURN')).to.equal(
-        'urn:user:employees:dev::uuUOZLMFfuURgumF2hE2VLqLoDy8Z0ZIr5AeicCJSHQ'
+        'urn:montreal:dev:vdm:iam:user:employees:uuUOZLMFfuURgumF2hE2VLqLoDy8Z0ZIr5AeicCJSHQ'
       );
     });
   });
